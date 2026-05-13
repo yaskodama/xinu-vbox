@@ -1,0 +1,38 @@
+# Object files
+*.o
+
+# Dependency files
+*.d
+
+# Libraries
+*.lib
+*.a
+
+# Shared objects
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Binary images
+*.elf
+*.boot
+*.bin
+*.map
+
+# Xinu build artifacts
+compile/binaries/
+compile/.deps
+compile/.defs
+compile/.vers_num
+config/conf.c
+config/conf.h
+config/y.tab.c
+config/y.tab.h
+config/lex.yy.c
+config/.yyleng
