@@ -43,6 +43,9 @@ extern	shellcmd  xsh_led	(int32, char *[]);
 /* in file xsh_memdump.c */
 extern	shellcmd  xsh_memdump	(int32, char *[]);
 
+/* in file xsh_koto.c（ことのは: ファイルシステムとコンパイラ） */
+extern	shellcmd  xsh_koto	(int32, char *[]);
+
 /* in file xsh_memstat.c */
 extern	shellcmd  xsh_memstat	(int32, char *[]);
 

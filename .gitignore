@@ -36,3 +36,4 @@ config/y.tab.c
 config/y.tab.h
 config/lex.yy.c
 config/.yyleng
+compile/kotonoha_make.log

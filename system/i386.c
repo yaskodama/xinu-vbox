@@ -52,13 +52,15 @@ void	setsegs()
 	psd->sd_lolimit = np;
 	psd->sd_hilimit = np >> 16;
 
+	/* データとスタックのセグメントは 4GB まで（画面の線形フレームバッファが 0xFD000000 付近にあるため）。
+	 * ことのはの GUI（system/gfx.c）のために広げた。元は npages（16MB）だった。 */
 	psd = &gdt_copy[2];	/* kernel data segment */
-	psd->sd_lolimit = npages;
-	psd->sd_hilimit = npages >> 16;
+	psd->sd_lolimit = 0xFFFF;
+	psd->sd_hilimit = 0xF;
 
 	psd = &gdt_copy[3];	/* kernel stack segment */
-	psd->sd_lolimit = npages;
-	psd->sd_hilimit = npages >> 16;
+	psd->sd_lolimit = 0xFFFF;
+	psd->sd_hilimit = 0xF;
 
 	psd = &gdt_copy[4];	/* bootp code segment */
 	psd->sd_lolimit = npages;   /* Allows execution of 0x100000 CODE */

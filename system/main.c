@@ -2,33 +2,21 @@
 
 #include <xinu.h>
 
-/* Sample process that prints a greeting N times with a small delay. */
-process greeter(char *name, int32 count)
-{
-	int32 i;
-	for (i = 1; i <= count; i++) {
-		kprintf("[%s] hello from Xinu! (%d/%d)\n", name, i, count);
-		sleepms(300);
-	}
-	return OK;
-}
+/* ことのはの開発環境（ウィンドウシステム＋ブラウザ＋デバッガ）。~/kotonoha/xinu/install.sh で組み込む */
+extern	process	kgui_main(void);
+extern	int32	gfx_init(void);
 
 process	main(void)
 {
 	pid32	shpid;		/* Shell process ID */
-	pid32	g1, g2;
 
 	printf("\n\n");
 
-	/* --- Sample program: spawn two cooperating processes --- */
-	kprintf("=== Sample: two greeter processes running concurrently ===\n");
-	g1 = create((void *)greeter, 4096, 50, "greeter-A", 2, "Alice", 3);
-	g2 = create((void *)greeter, 4096, 50, "greeter-B", 2, "Bob",   3);
-	resume(g1);
-	resume(g2);
-	/* Wait long enough for both to finish before launching the shell. */
-	sleepms(2500);
-	kprintf("=== Sample finished, starting shell ===\n\n");
+	/* --- 画面があれば、ことのはの開発環境を別のプロセスで動かす（シェルはシリアルのまま） --- */
+	if (gfx_init() == OK) {
+		resume(create(kgui_main, 65536, 30, "kgui", 0));
+		kprintf("ことのはの開発環境を画面に出しました\n");
+	}
 
 	/* Create a local file system on the RAM disk */
 
